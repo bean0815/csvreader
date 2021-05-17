@@ -11,9 +11,8 @@ import (
 )
 
 type Decoder struct {
-	header     map[string]int
-	hasRemarks bool
-	keyCheck   []string
+	header   map[string]int
+	keyCheck []string
 }
 
 type CsvMarshal interface {
@@ -21,9 +20,7 @@ type CsvMarshal interface {
 }
 
 func New() *Decoder {
-	return &Decoder{
-		hasRemarks: true,
-	}
+	return &Decoder{}
 }
 
 func (d *Decoder) WithHeader(header []string) *Decoder {
@@ -31,11 +28,6 @@ func (d *Decoder) WithHeader(header []string) *Decoder {
 	for i, h := range header {
 		d.header[h] = i
 	}
-	return d
-}
-
-func (d *Decoder) WithRemarks(b bool) *Decoder {
-	d.hasRemarks = b
 	return d
 }
 
@@ -82,9 +74,6 @@ func (d *Decoder) UnMarshal(reader *csv.Reader, bean interface{}) error {
 			return err
 		}
 		d.WithHeader(row)
-	}
-	if d.hasRemarks {
-		reader.Read()
 	}
 	if err := d.checkKeys(); err != nil {
 		return err

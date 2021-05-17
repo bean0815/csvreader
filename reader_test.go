@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/zhnxin/csvreader"
+	"github.com/bean0815/csvreader"
 )
 
 type testStruct struct {
